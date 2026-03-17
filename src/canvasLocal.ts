@@ -41,9 +41,10 @@ export class CanvasLocal {
   paint() {
     
 
-    this.drawLine(100.5,100, 500,100.5);
-    this.drawLine(500, 100, 300, 400);
-    this.drawLine(300, 400, 100,100);
+  this.drawLine(100, 100, 300, 100);
+  this.drawLine(300, 100, 300, 300);
+  this.drawLine(300, 300, 100, 300);
+  this.drawLine(100, 300, 100, 100);
    /* this.drawLine(this.iX(-3), this.iY(0), this.iX(3), this.iY(0));
     this.drawLine(this.iX(0), this.iY(2), this.iX(0), this.iY(-2));
 

@@ -37,6 +37,8 @@ export class CanvasLocal {
   }*/
 
   paint() {
+  return;
+
 
     this.graphics.clearRect(0, 0, this.maxX + 1, this.maxY + 1);
 
@@ -155,6 +157,31 @@ let py = this.centerY - y * escala;
 
     } catch {
       alert("Función inválida");
+    }
+  }
+
+public paintBarras(datos: number[]) {
+
+    this.graphics.clearRect(0, 0, this.maxX, this.maxY);
+
+    let y = 50;
+    let altoBarra = 30;
+
+    this.graphics.strokeStyle = "blue";
+    this.graphics.fillStyle = "blue";
+
+    for (let i = 0; i < datos.length; i++) {
+
+      let ancho = datos[i] * 5;
+
+      this.graphics.fillRect(50, y, ancho, altoBarra);
+
+      this.graphics.fillStyle = "black";
+      this.graphics.fillText(datos[i].toString(), 10, y + 20);
+
+      this.graphics.fillStyle = "blue";
+
+      y += 50;
     }
   }
 }

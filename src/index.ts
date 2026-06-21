@@ -1,26 +1,24 @@
 import { CanvasLocal } from './canvasLocal.js';
 
-window.onload = () => {
+let canvas: HTMLCanvasElement;
+let graphics: CanvasRenderingContext2D;
 
-  let canvas = document.getElementById('circlechart') as HTMLCanvasElement;
-  let graphics = canvas.getContext('2d')!;
+canvas = document.getElementById('circlechart') as HTMLCanvasElement;
+graphics = canvas.getContext('2d')!;
 
-  const miCanvas: CanvasLocal = new CanvasLocal(graphics, canvas);
+const miCanvas: CanvasLocal = new CanvasLocal(graphics, canvas);
 
-  // ✅ variable global
-  (window as any).funcionActual = "x";
 
-  // ✅ elementos
-  const input = document.getElementById("funcion") as HTMLInputElement;
-  const btn = document.getElementById("btnGraficar") as HTMLButtonElement;
+(window as any).funcionActual = "x";
 
-  // ✅ evento
-  btn.onclick = () => {
-    console.log("Función:", input.value); // para verificar
-    (window as any).funcionActual = input.value;
-    miCanvas.paint();
-  };
+const inputDatos = document.getElementById("datos") as HTMLInputElement;
 
-  // inicial
-  miCanvas.paint();
+const btn = document.getElementById("btnGraficar") as HTMLButtonElement;
+
+btn.onclick = () => {
+
+  let valores = inputDatos.value.split(",").map(Number);
+
+  miCanvas.paintBarras(valores);
+
 };

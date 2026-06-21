@@ -23,9 +23,8 @@ export class CanvasLocal {
       return Math.sin(x*2.5);
     }*/
     paint() {
-        // ✅ LIMPIAR CANVAS
+        return;
         this.graphics.clearRect(0, 0, this.maxX + 1, this.maxY + 1);
-        // 🔷 FIGURA DEL PROFESOR (CUADRADO ORIGINAL)
         this.graphics.strokeStyle = "blue";
         this.drawLine(100, 100, 300, 100);
         this.drawLine(300, 100, 300, 300);
@@ -67,7 +66,6 @@ export class CanvasLocal {
         this.drawLine(320, 40, 140, 400);
         this.drawLine(140, 400, 480, 400);
         */
-        // 🔥 FIGURA NUEVA PARA LA TAREA (HEXÁGONO)
         const cx = this.centerX;
         const cy = this.centerY;
         const lados = 6;
@@ -99,7 +97,6 @@ export class CanvasLocal {
         q = 0.05;
         p = 1 - q;
         */
-        // ✅ 🔥 GRAFICADOR DE FUNCIONES
         this.graphics.strokeStyle = "red";
         this.graphics.lineWidth = 2;
         try {
@@ -107,10 +104,9 @@ export class CanvasLocal {
             const f = new Function("x", "return " + funcion);
             let first = true;
             for (let px = 0; px <= this.maxX; px++) {
-                let escala = 60; // 🔥 aumentar zoom
+                let escala = 50;
                 let x = (px - this.centerX) / escala;
                 let y = f(x);
-                // controlar valores muy grandes
                 if (y > 10 || y < -10)
                     continue;
                 let py = this.centerY - y * escala;
@@ -128,6 +124,21 @@ export class CanvasLocal {
         }
         catch (_a) {
             alert("Función inválida");
+        }
+    }
+    paintBarras(datos) {
+        this.graphics.clearRect(0, 0, this.maxX, this.maxY);
+        let y = 50;
+        let altoBarra = 30;
+        this.graphics.strokeStyle = "blue";
+        this.graphics.fillStyle = "blue";
+        for (let i = 0; i < datos.length; i++) {
+            let ancho = datos[i] * 5;
+            this.graphics.fillRect(50, y, ancho, altoBarra);
+            this.graphics.fillStyle = "black";
+            this.graphics.fillText(datos[i].toString(), 10, y + 20);
+            this.graphics.fillStyle = "blue";
+            y += 50;
         }
     }
 }

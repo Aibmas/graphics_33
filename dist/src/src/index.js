@@ -5,7 +5,6 @@ canvas = document.getElementById('circlechart');
 graphics = canvas.getContext('2d');
 graphics.fillStyle = "black";
 const miCanvas = new CanvasLocal(graphics, canvas);
-miCanvas.paint();
 let vertices = [];
 let angulo = 0;
 fetch("./ventilador_estructurado_limpio.txt")

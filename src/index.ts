@@ -3,22 +3,63 @@ import { CanvasLocal } from './canvasLocal.js';
 let canvas: HTMLCanvasElement;
 let graphics: CanvasRenderingContext2D;
 
-canvas = document.getElementById('circlechart') as HTMLCanvasElement;
-graphics = canvas.getContext('2d')!;
+canvas = <HTMLCanvasElement>document.getElementById('circlechart');
+graphics = canvas.getContext('2d');
 
-const miCanvas: CanvasLocal = new CanvasLocal(graphics, canvas);
+graphics.fillStyle = "black";
+
+const miCanvas:CanvasLocal = new CanvasLocal(graphics, canvas);
+
+miCanvas.paint();
+
+let vertices: number[][] = [];
+let angulo = 0;
+
+fetch("./ventilador_estructurado_limpio.txt")
+  .then(res => res.text())
+  .then(data => {
+
+    data.split("\n").forEach(linea => {
+      let partes = linea.trim().split(" ");
+
+      if (partes.length === 4) {
+        vertices.push([
+          parseFloat(partes[1]),
+          parseFloat(partes[2]),
+          parseFloat(partes[3])
+        ]);
+      }
+    });
+
+    animar();
+  });
+
+function animar(){
+
+  graphics.clearRect(0,0,canvas.width,canvas.height);
+
+  angulo += 0.02;
+
+  vertices.forEach((v,i)=>{
+
+    if(i%20 !== 0) return;
+
+    
+let x = v[1];
+let y = v[2];
 
 
-(window as any).funcionActual = "x";
+    let xr = x*Math.cos(angulo) - y*Math.sin(angulo);
+    let yr = x*Math.sin(angulo) + y*Math.cos(angulo);
 
-const inputDatos = document.getElementById("datos") as HTMLInputElement;
+    let escala = 0.01;
 
-const btn = document.getElementById("btnGraficar") as HTMLButtonElement;
+    let px = xr*escala + canvas.width/2;
+    let py = -yr*escala + canvas.height/2;
 
-btn.onclick = () => {
+    miCanvas.drawPoint(px,py);
 
-  let valores = inputDatos.value.split(",").map(Number);
+  });
 
-  miCanvas.paintBarras(valores);
-
-};
+  requestAnimationFrame(animar);
+}
